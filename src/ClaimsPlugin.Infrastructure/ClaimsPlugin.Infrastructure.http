@@ -1,0 +1,6 @@
+@ClaimsPlugin.Infrastructure_HostAddress = http://localhost:5130
+
+GET {{ClaimsPlugin.Infrastructure_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
