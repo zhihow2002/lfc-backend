@@ -5,8 +5,5 @@ using System.Threading.Tasks;
 
 namespace ClaimsPlugin.Domain.Events
 {
-    public interface IEvent : INotification
-    {
-        
-    }
+    public interface IEvent { }
 }

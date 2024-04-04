@@ -1,27 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ClaimsPlugin.Shared.Common.Models;
 
 namespace ClaimsPlugin.Infrastructure.Models
 {
-    public class User
+    public class User : BaseAuditableEntity
     {
-        public Guid Id;
-        public string UserId;
-        public string InsertBy;
-        public DateTime InsertDateTime;
-        public string UpdatedBy;
-        public DateTime UpdatedOn;
-        public string Recsts;
-        public string FullName;
-        public string Password;
-        public string UserType;
-        public string Email;
-        public string MobileNO;
-        public string Language;
-        public string Theme;
-        public string Par
-
+        public Guid Id { get; set; }
+        public string? UserId { get; set; }
+        public string? Email { get; set; }
+        public string? PasswordHash { get; set; }
     }
 }
