@@ -1,0 +1,116 @@
+2024-04-08 18:31:21.310 +08:00 [FTL] Unhandled exception
+System.InvalidOperationException: Unable to read hosting setting.
+   at ClaimsPlugin.Shared.Foundation.Features.Hosting.Startup.ConfigureEndpoints(KestrelServerOptions options, String microservice, IWebHostEnvironment environment, IConfiguration configuration) in E:\Code\lfc-backend\src\ClaimsPlugin.Shared\Foundation\Features\Hosting\Startup.cs:line 26
+   at ClaimsPlugin.Api.Program.<>c__DisplayClass0_0.<Main>b__0(KestrelServerOptions options) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 33
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.CreateServiceContext(IOptions`1 options, ILoggerFactory loggerFactory, DiagnosticSource diagnosticSource, KestrelMetrics metrics)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl..ctor(IOptions`1 options, IEnumerable`1 transportFactories, IEnumerable`1 multiplexedFactories, IHttpsConfigurationService httpsConfigurationService, ILoggerFactory loggerFactory, KestrelMetrics metrics)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.AspNetCore.Builder.WebApplication.get_ServerFeatures()
+   at Microsoft.AspNetCore.Builder.WebApplication..ctor(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at ClaimsPlugin.Api.Program.Main(String[] args) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 49
+2024-04-08 18:31:21.332 +08:00 [INF] ClaimsPlugin.Api Shutting down...
+2024-04-08 18:33:07.530 +08:00 [FTL] Unhandled exception
+System.InvalidOperationException: Unable to read particular hosting setting.
+   at ClaimsPlugin.Shared.Foundation.Features.Hosting.Startup.ConfigureEndpoints(KestrelServerOptions options, String microservice, IWebHostEnvironment environment, IConfiguration configuration) in E:\Code\lfc-backend\src\ClaimsPlugin.Shared\Foundation\Features\Hosting\Startup.cs:line 35
+   at ClaimsPlugin.Api.Program.<>c__DisplayClass0_0.<Main>b__0(KestrelServerOptions options) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 33
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.CreateServiceContext(IOptions`1 options, ILoggerFactory loggerFactory, DiagnosticSource diagnosticSource, KestrelMetrics metrics)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl..ctor(IOptions`1 options, IEnumerable`1 transportFactories, IEnumerable`1 multiplexedFactories, IHttpsConfigurationService httpsConfigurationService, ILoggerFactory loggerFactory, KestrelMetrics metrics)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.AspNetCore.Builder.WebApplication.get_ServerFeatures()
+   at Microsoft.AspNetCore.Builder.WebApplication..ctor(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at ClaimsPlugin.Api.Program.Main(String[] args) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 49
+2024-04-08 18:33:07.551 +08:00 [INF] ClaimsPlugin.Api Shutting down...
+2024-04-08 18:35:04.801 +08:00 [FTL] Unhandled exception
+System.InvalidOperationException: Unable to read particular hosting setting.
+   at ClaimsPlugin.Shared.Foundation.Features.Hosting.Startup.ConfigureEndpoints(KestrelServerOptions options, String microservice, IWebHostEnvironment environment, IConfiguration configuration) in E:\Code\lfc-backend\src\ClaimsPlugin.Shared\Foundation\Features\Hosting\Startup.cs:line 35
+   at ClaimsPlugin.Api.Program.<>c__DisplayClass0_0.<Main>b__0(KestrelServerOptions options) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 33
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.CreateServiceContext(IOptions`1 options, ILoggerFactory loggerFactory, DiagnosticSource diagnosticSource, KestrelMetrics metrics)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl..ctor(IOptions`1 options, IEnumerable`1 transportFactories, IEnumerable`1 multiplexedFactories, IHttpsConfigurationService httpsConfigurationService, ILoggerFactory loggerFactory, KestrelMetrics metrics)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.AspNetCore.Builder.WebApplication.get_ServerFeatures()
+   at Microsoft.AspNetCore.Builder.WebApplication..ctor(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at ClaimsPlugin.Api.Program.Main(String[] args) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 49
+2024-04-08 18:35:04.823 +08:00 [INF] ClaimsPlugin.Api Shutting down...
+2024-04-08 18:38:16.136 +08:00 [FTL] Unhandled exception
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at ClaimsPlugin.Shared.Foundation.Features.Hosting.Startup.ConfigureProductionEndpoints(KestrelServerOptions options, HostingSettings setting) in E:\Code\lfc-backend\src\ClaimsPlugin.Shared\Foundation\Features\Hosting\Startup.cs:line 116
+   at ClaimsPlugin.Shared.Foundation.Features.Hosting.Startup.ConfigureEndpoints(KestrelServerOptions options, String microservice, IWebHostEnvironment environment, IConfiguration configuration) in E:\Code\lfc-backend\src\ClaimsPlugin.Shared\Foundation\Features\Hosting\Startup.cs:line 44
+   at ClaimsPlugin.Api.Program.<>c__DisplayClass0_0.<Main>b__0(KestrelServerOptions options) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 33
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.CreateServiceContext(IOptions`1 options, ILoggerFactory loggerFactory, DiagnosticSource diagnosticSource, KestrelMetrics metrics)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl..ctor(IOptions`1 options, IEnumerable`1 transportFactories, IEnumerable`1 multiplexedFactories, IHttpsConfigurationService httpsConfigurationService, ILoggerFactory loggerFactory, KestrelMetrics metrics)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.AspNetCore.Builder.WebApplication.get_ServerFeatures()
+   at Microsoft.AspNetCore.Builder.WebApplication..ctor(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at ClaimsPlugin.Api.Program.Main(String[] args) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 49
+2024-04-08 18:38:16.160 +08:00 [INF] ClaimsPlugin.Api Shutting down...
+2024-04-08 18:40:56.155 +08:00 [FTL] Unhandled exception
+System.InvalidOperationException: Unable to find the required services. Please add all the required services by calling 'IServiceCollection.AddControllers' inside the call to 'ConfigureServices(...)' in the application startup code.
+   at Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.EnsureControllerServices(IEndpointRouteBuilder endpoints)
+   at Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers(IEndpointRouteBuilder endpoints)
+   at ClaimsPlugin.Shared.ServiceBuilder.MapEndpoints(IEndpointRouteBuilder builder, Assembly projectAssembly) in E:\Code\lfc-backend\src\ClaimsPlugin.Shared\ServiceBuilder.cs:line 24
+   at ClaimsPlugin.Api.Program.Main(String[] args) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 52
+2024-04-08 18:40:56.170 +08:00 [INF] ClaimsPlugin.Api Shutting down...

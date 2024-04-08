@@ -10,8 +10,9 @@ namespace ClaimsPlugin.Infrastructure
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options) { }
 
-        public DbSet<User>? Users => Set<User>();
+        public DbSet<User> Users => Set<User>();
         public DbSet<TokenManager> Tokens => Set<TokenManager>();
+        public DbSet<UserRole> UserRoles => Set<UserRole>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +21,18 @@ namespace ClaimsPlugin.Infrastructure
             modelBuilder.Entity<User>(i =>
             {
                 i.ToTable("Users");
+                i.HasKey(k => k.Id);
+            });
+
+            modelBuilder.Entity<TokenManager>(i =>
+            {
+                i.ToTable("TokenManager");
+                i.HasKey(k => k.Id);
+            });
+
+             modelBuilder.Entity<UserRole>(i =>
+            {
+                i.ToTable("UserRole");
                 i.HasKey(k => k.Id);
             });
         }
