@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using AutoMapper;
+
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
@@ -53,6 +55,9 @@ namespace ClaimsPlugin.Api
 
             builder.Services.AddControllers();
             builder.Services.AddMediatR(typeof(LoginCommandHandler).Assembly);
+
+            // Register AutoMapper - Ensure this comes after AddControllers()
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             // Register application services
             builder.Services.AddScoped<IUserRepository, UserRepository>();
