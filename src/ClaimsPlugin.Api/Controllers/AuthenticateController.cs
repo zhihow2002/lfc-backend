@@ -1,33 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using ClaimsPlugin.Application.Commands.AuthCommands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace ClaimsPlugin.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthenticateController : Controller
+    public class AuthenticateController(IMediator mediator) : Controller
     {
-        private readonly ILogger<AuthenticateController> _logger;
+        private readonly IMediator _mediator = mediator;
 
-        public AuthenticateController(ILogger<AuthenticateController> logger)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
+            try
+            {
+                var token = await _mediator.Send(command);
+                return Ok(new { Token = token });
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
         }
     }
 }

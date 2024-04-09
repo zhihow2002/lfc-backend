@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ClaimsPlugin.Infrastructure.Models
+namespace ClaimsPlugin.Domain.Models
 {
     public class TokenManager
     {

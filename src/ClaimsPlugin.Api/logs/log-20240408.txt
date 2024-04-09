@@ -114,3 +114,11 @@ System.InvalidOperationException: Unable to find the required services. Please a
    at ClaimsPlugin.Shared.ServiceBuilder.MapEndpoints(IEndpointRouteBuilder builder, Assembly projectAssembly) in E:\Code\lfc-backend\src\ClaimsPlugin.Shared\ServiceBuilder.cs:line 24
    at ClaimsPlugin.Api.Program.Main(String[] args) in E:\Code\lfc-backend\src\ClaimsPlugin.Api\Program.cs:line 52
 2024-04-08 18:40:56.170 +08:00 [INF] ClaimsPlugin.Api Shutting down...
+2024-04-08 19:02:26.799 +08:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - ClaimsPlugin.Api.Controllers.AuthenticateController.Index (ClaimsPlugin.Api). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)

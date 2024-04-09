@@ -1,4 +1,6 @@
-using ClaimsPlugin.Infrastructure.Models;
+using System.Reflection;
+using ClaimsPlugin.Domain.Models;
+using ClaimsPlugin.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClaimsPlugin.Infrastructure
@@ -18,33 +20,29 @@ namespace ClaimsPlugin.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>(i =>
-            {
-                i.ToTable("Users");
-                i.HasKey(k => k.Id);
-            });
+            // Apply entity configurations
+            // modelBuilder.ApplyConfiguration(new UserConfiguration());
+            // modelBuilder.ApplyConfiguration(new TokenManagerConfiguration());
+            // modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
 
-            modelBuilder.Entity<TokenManager>(i =>
-            {
-                i.ToTable("TokenManager");
-                i.HasKey(k => k.Id);
-            });
+            // Alternatively, if you have many configurations, you can apply them all at once using:
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-             modelBuilder.Entity<UserRole>(i =>
-            {
-                i.ToTable("UserRole");
-                i.HasKey(k => k.Id);
-            });
+            // Define your seed data here
+            modelBuilder
+                .Entity<User>()
+                .HasData(
+                    new User
+                    {
+                        Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                        UserId = "admin",
+                        PasswordHash = "hashed-password",
+                        Email = "test@gmail.com"
+                    }
+                // Add more users as needed
+                );
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                const string ConnectionStr =
-                    "Data Source=ZHIHOW;Initial Catalog=LFC;Integrated Security=True;TrustServerCertificate=True;MultipleActiveResultSets=True";
-                optionsBuilder.UseSqlServer(ConnectionStr);
-            }
-        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
     }
 }

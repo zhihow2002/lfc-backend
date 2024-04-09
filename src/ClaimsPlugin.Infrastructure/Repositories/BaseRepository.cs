@@ -1,69 +1,34 @@
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Threading.Tasks;
+using ClaimsPlugin.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-// namespace ClaimsPlugin.Infrastructure.Repositories
-// {
-//     internal abstract class BaseRepository<E> : IRepository<E>
-//         where E : AggregateRoot
-//     {
-//         private readonly BackendDbContext _context;
-//         private readonly DbSet<E> _dbset;
+namespace ClaimsPlugin.Infrastructure.Repositories
+{
+    public abstract class BaseRepository<T>(DbContext context) : IRepository<T>
+        where T : class
+    {
+        protected readonly DbContext _context = context;
 
-//         public IUnitOfWork UnitOfWork => _context;
+        public async Task<T> GetByIdAsync(Guid id)
+        {
+            return await _context.Set<T>().FindAsync(id) ?? default!;
+        }
 
-//         public BaseRepository(BackendDbContext context)
-//         {
-//             _context = context;
-//             _dbset = _context.Set<E>();
-//         }
+        public async Task AddAsync(T entity)
+        {
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
 
-//         public E Add(E entity)
-//         {
-//             return _dbset.Add(entity).Entity;
-//         }
+        public async Task UpdateAsync(T entity)
+        {
+            _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
+        }
 
-//         public async Task<bool> AnyAsync(Expression<Func<E, bool>> expression)
-//         {
-//             return await _dbset.AnyAsync(expression);
-//         }
-
-//         public void Delete(E entity)
-//         {
-//             _dbset.Remove(entity);
-//         }
-
-//         public async Task<List<E>> GetAllAsync(List<Func<IQueryable<E>, IQueryable<E>>> includes, CancellationToken cancellationToken = default)
-//         {
-//             IQueryable<E> query = _dbset;
-
-//             foreach (var include in includes)
-//             {
-//                 query = query.AppendQuery(include);
-//             }
-//             return await query.ToListAsync(cancellationToken);
-//         }
-
-//         public async Task<List<E>> GetAsync(Expression<Func<E, bool>> expression, List<Func<IQueryable<E>, IQueryable<E>>> includes, CancellationToken cancellationToken = default)
-//         {
-//             IQueryable<E> query = _dbset.Where(expression);
-//             foreach (var include in includes)
-//             {
-//                 query = query.AppendQuery(include);
-//             }
-//             return await query.ToListAsync(cancellationToken);
-//         }
-
-//         public async Task<E> GetByIdAsync(Guid id, List<Func<IQueryable<E>, IQueryable<E>>> includes, CancellationToken cancellationToken = default)
-//         {
-//             IQueryable<E> query = _dbset;
-//             foreach (var include in includes)
-//             {
-//                 query = query.AppendQuery(include);
-//             }
-//             return await query.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
-//         }
-
-//     }
-// }
+        public async Task DeleteAsync(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
+}

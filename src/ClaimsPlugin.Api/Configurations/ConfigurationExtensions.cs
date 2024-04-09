@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace ClaimsPlugin.Api.Configurations
 {
-    internal static class Startup
+    public static class ConfigurationExtensions 
     {
-        internal static void AddConfigurations(
+        public static void AddConfigurations(
             this WebApplicationBuilder builder,
             IHostEnvironment environment
         )
@@ -17,13 +12,13 @@ namespace ClaimsPlugin.Api.Configurations
             builder
                 .Configuration.AddJsonFile(
                     $"{configurationsDirectory}/appsettings.json",
-                    false,
-                    true
+                    optional: false,
+                    reloadOnChange: true
                 )
                 .AddJsonFile(
                     $"{configurationsDirectory}/appsettings.{environment.EnvironmentName}.json",
-                    true,
-                    true
+                    optional: true,
+                    reloadOnChange: true
                 )
                 .AddEnvironmentVariables();
         }

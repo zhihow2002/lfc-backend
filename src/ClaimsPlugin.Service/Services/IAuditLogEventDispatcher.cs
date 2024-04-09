@@ -7,6 +7,6 @@ namespace ClaimsPlugin.Repository.Services
 {
     public interface IAuditLogEventDispatcher
     {
-          Task DispatchAsync(IAuditLogEvent @event, CancellationToken cancellationToken = default);
+         // Task DispatchAsync(IAuditLogEvent @event, CancellationToken cancellationToken = default);
     }
 }
