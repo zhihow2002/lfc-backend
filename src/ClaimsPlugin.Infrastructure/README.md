@@ -4,11 +4,11 @@ Contents: Database Contexts (like EF Core DbContext), Repository Implementations
 Focus: Interacting with external concerns like databases, file systems, external services, and third-party APIs.
 
 
-Add Migration
+## Add Migration
 dotnet ef migrations add InitialCreate --startup-project ../ClaimsPlugin.Api/ClaimsPlugin.Api.csproj
 
-Add Seed Data
+## Add Seed Data
 dotnet ef migrations add AddSeedData --startup-project ../ClaimsPlugin.Api/ClaimsPlugin.Api.csproj
 
-Update Database
+## Update Database
 dotnet ef database update --startup-project ../ClaimsPlugin.Api/ClaimsPlugin.Api.csproj

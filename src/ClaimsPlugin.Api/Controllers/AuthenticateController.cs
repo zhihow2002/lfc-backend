@@ -1,4 +1,5 @@
 using ClaimsPlugin.Application.Commands.AuthCommands;
+using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,11 +17,18 @@ namespace ClaimsPlugin.Api.Controllers
             try
             {
                 var token = await _mediator.Send(command);
-                return Ok(new { Token = token });
+                var response = BaseApiResponse<object>.SuccessResponse(
+                    new { Token = token },
+                    "Login successful."
+                );
+                return Ok(new { response });
             }
             catch (UnauthorizedAccessException)
             {
-                return Unauthorized();
+                var errorResponse = BaseApiResponse<object>.FailureResponse(
+                    "Login failed. Unauthorized access."
+                );
+                return Unauthorized(errorResponse);
             }
         }
     }
