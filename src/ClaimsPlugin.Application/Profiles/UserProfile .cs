@@ -1,5 +1,5 @@
 using AutoMapper;
-using ClaimsPlugin.Api.Dtos;
+using ClaimsPlugin.Application.Dtos;
 using ClaimsPlugin.Domain.Models;
 
 namespace ClaimsPlugin.Api.Profiles
