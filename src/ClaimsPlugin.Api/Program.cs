@@ -57,7 +57,7 @@ namespace ClaimsPlugin.Api
             builder.Services.AddMediatR(typeof(LoginCommandHandler).Assembly);
 
             // Register AutoMapper - Ensure this comes after AddControllers()
-            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            //builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             // Register application services
             builder.Services.AddScoped<IUserRepository, UserRepository>();

@@ -23,5 +23,26 @@ namespace ClaimsPlugin.Infrastructure.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userid);
         }
+
+        public Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return null;
+        }
+
+        public Task CreateUserAsync(User user)
+        {
+            return null;
+        }
+
+        public void UpdateUser(User user) { }
+
+        public Task DeleteUserAsync(int id) { 
+            return null;
+        }
+
+        public Task<User> GetUserByIdAsync(int id)
+        {
+            return null;
+        }
     }
 }
