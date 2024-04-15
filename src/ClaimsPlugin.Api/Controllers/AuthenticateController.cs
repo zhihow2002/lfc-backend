@@ -17,11 +17,21 @@ namespace ClaimsPlugin.Api.Controllers
             try
             {
                 var token = await _mediator.Send(command);
-                var response = BaseApiResponse<object>.SuccessResponse(
-                    new { Token = token },
-                    "Login successful."
-                );
-                return Ok(new { response });
+                if (token != string.Empty)
+                {
+                    var response = BaseApiResponse<object>.SuccessResponse(
+                        new { Token = token },
+                        "Login successful."
+                    );
+                    return Ok(new { response });
+                }
+                else
+                {
+                    var errorResponse = BaseApiResponse<object>.FailureResponse(
+                        "Login failed. Unauthorized access."
+                    );
+                    return Unauthorized(errorResponse);
+                }
             }
             catch (UnauthorizedAccessException)
             {

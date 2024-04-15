@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClaimsPlugin.Service", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClaimsPlugin.Shared", "src\ClaimsPlugin.Shared\ClaimsPlugin.Shared.csproj", "{FCFB284D-DF4B-4D9F-861C-5585CA64255F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClaimsPlugin.Application", "src\ClaimsPlugin.Application\ClaimsPlugin.Application.csproj", "{119A56DC-696E-44A6-AE04-5C941CF047C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{FCFB284D-DF4B-4D9F-861C-5585CA64255F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCFB284D-DF4B-4D9F-861C-5585CA64255F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCFB284D-DF4B-4D9F-861C-5585CA64255F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119A56DC-696E-44A6-AE04-5C941CF047C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119A56DC-696E-44A6-AE04-5C941CF047C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119A56DC-696E-44A6-AE04-5C941CF047C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119A56DC-696E-44A6-AE04-5C941CF047C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +57,9 @@ Global
 		{CB861EFF-1970-4CB7-972C-D5393354F5BD} = {0D188B01-8AE4-487A-A182-32414A2E0553}
 		{A3F3A43F-23F9-4515-91C1-A33FC12360FA} = {0D188B01-8AE4-487A-A182-32414A2E0553}
 		{FCFB284D-DF4B-4D9F-861C-5585CA64255F} = {0D188B01-8AE4-487A-A182-32414A2E0553}
+		{119A56DC-696E-44A6-AE04-5C941CF047C3} = {0D188B01-8AE4-487A-A182-32414A2E0553}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4939976-B3A8-44A3-BD07-B920F6ED6661}
 	EndGlobalSection
 EndGlobal
