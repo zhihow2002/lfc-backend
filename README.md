@@ -1,7 +1,7 @@
 # Life Family Claims Plugin
 
 ## Overview
-Life Family Claims Plugin is a .NET 8 application developed by Etiqa M that provides Insurance Life Family Claims
+Life Family Claims Plugin is a .NET 8 application developed by Etiqa that provides Insurance Life Family Claims
 
 ## Features
 - Create Claims 
