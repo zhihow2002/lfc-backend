@@ -1,4 +1,4 @@
-5. Service (ClaimsPlugin.Service)
+# 5. Service (ClaimsPlugin.Service)
 Purpose: (Optional, depending on architecture) Can act as an additional layer where complex business logic or operations that span multiple domain concepts are implemented. It can also serve as the location for orchestrating calls to infrastructure services and domain entities, especially for operations that don't neatly fit within a single entity or value object.
 Contents: Complex Application Services, Business Logic that doesn't belong to a single Domain Entity, and Operations that involve multiple Domain Entities.
 Focus: Providing higher-level business operations that often involve coordinating tasks across multiple domain entities or external services.
