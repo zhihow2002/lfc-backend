@@ -40,14 +40,14 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
                 // Validate and decode the old refresh token to get user information if needed
                 if (
                     !_authenticationService.ValidateToken(
-                        request.OldRefreshToken,
+                        request.OldAccessToken,
                         out var principal
                     )
                 )
                 {
                     _logger.LogWarning(
-                        "Invalid or expired refresh token: {OldRefreshToken}",
-                        request.OldRefreshToken
+                        "Invalid or expired refresh token: {OldAccessToken}",
+                        request.OldAccessToken
                     );
                     return BaseApiResponse<object>.FailureResponse(
                         "Invalid token or token expired."
@@ -60,8 +60,8 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
                 if (user == null)
                 {
                     _logger.LogWarning(
-                        "No user found for provided token: {OldRefreshToken}",
-                        request.OldRefreshToken
+                        "No user found for provided token: {OldAccessToken}",
+                        request.OldAccessToken
                     );
                     return BaseApiResponse<object>.FailureResponse(
                         "Invalid token or token expired."

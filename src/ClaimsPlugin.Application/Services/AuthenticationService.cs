@@ -67,25 +67,37 @@ namespace ClaimsPlugin.Application.Services
         public string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Key"]);
+            var keyString = _configuration["JwtSettings:Key"]; // Retrieve key from configuration
+            var keyBytes = Encoding.ASCII.GetBytes(keyString);
+            var issuer = _configuration["JwtSettings:Issuer"]; // Add issuer configuration
+            var audience = _configuration["JwtSettings:Audience"]; // Add audience configuration
+
+            // Log the key being used for signing
+            _logger.LogDebug($"Signing Key: {keyString}");
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(
                     new[]
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                        //new Claim(ClaimTypes.Name, user.UserId),
                         // Add more claims as needed
                     }
                 ),
                 Expires = DateTime.UtcNow.AddDays(7), // Set token expiration as needed
+                Issuer = issuer,
+                Audience = audience,
                 SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key),
+                    new SymmetricSecurityKey(keyBytes),
                     SecurityAlgorithms.HmacSha256Signature
                 )
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            // Log the generated token
+            _logger.LogDebug($"Generated Token: {tokenHandler.WriteToken(token)}");
+
             return tokenHandler.WriteToken(token);
         }
 
@@ -138,25 +150,74 @@ namespace ClaimsPlugin.Application.Services
                     ClockSkew = TimeSpan.Zero
                 };
 
+                SecurityToken validatedToken;
                 principal = tokenHandler.ValidateToken(
                     token,
                     validationParameters,
-                    out SecurityToken validatedToken
+                    out validatedToken
                 );
 
-                bool isValid =
-                    validatedToken is JwtSecurityToken jwtSecurityToken
-                    && jwtSecurityToken.Header.Alg.Equals(
-                        SecurityAlgorithms.HmacSha256Signature,
-                        StringComparison.InvariantCultureIgnoreCase
-                    );
-
-                if (!isValid)
+                if (validatedToken is JwtSecurityToken jwtSecurityToken)
                 {
-                    _logger.LogWarning("Token validation failed. Token: {Token}", token);
+                    var algorithm = jwtSecurityToken.Header.Alg.Trim();
+                    if (
+                        algorithm.Equals("HS256", StringComparison.OrdinalIgnoreCase)
+                        || algorithm.Equals(
+                            SecurityAlgorithms.HmacSha256Signature,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    )
+                    {
+                        _logger.LogInformation(
+                            "Token validation successful. Token: {Token}",
+                            token
+                        );
+                        return true;
+                    }
+                    else
+                    {
+                        _logger.LogWarning(
+                            "Token validation failed. Invalid algorithm or header. Token: {Token}",
+                            token
+                        );
+                        return false;
+                    }
                 }
-
-                return isValid;
+                else
+                {
+                    _logger.LogWarning(
+                        "Token validation failed. Token is not a JwtSecurityToken. Token: {Token}",
+                        token
+                    );
+                    return false;
+                }
+            }
+            catch (SecurityTokenExpiredException ex)
+            {
+                _logger.LogWarning(
+                    ex,
+                    "Token validation failed. Token expired. Token: {Token}",
+                    token
+                );
+                return false;
+            }
+            catch (SecurityTokenInvalidSignatureException ex)
+            {
+                _logger.LogWarning(
+                    ex,
+                    "Token validation failed. Invalid signature. Token: {Token}",
+                    token
+                );
+                return false;
+            }
+            catch (SecurityTokenException ex)
+            {
+                _logger.LogWarning(
+                    ex,
+                    "Token validation failed. Security token exception. Token: {Token}",
+                    token
+                );
+                return false;
             }
             catch (Exception ex)
             {

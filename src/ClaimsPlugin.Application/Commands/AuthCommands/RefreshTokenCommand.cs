@@ -9,11 +9,11 @@ namespace ClaimsPlugin.Application.Commands.AuthCommands
 {
     public class RefreshTokenCommand : IRequest<BaseApiResponse<object>>
     {
-        public string OldRefreshToken { get; set; }
+        public string OldAccessToken { get; set; }
 
-        public RefreshTokenCommand(string oldRefreshToken)
+        public RefreshTokenCommand(string oldAccessToken)
         {
-            OldRefreshToken = oldRefreshToken;
+            OldAccessToken = oldAccessToken;
         }
     }
 }
