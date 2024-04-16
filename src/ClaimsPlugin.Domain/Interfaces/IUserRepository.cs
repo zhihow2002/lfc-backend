@@ -4,11 +4,12 @@ namespace ClaimsPlugin.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User?> GetUserByUsernameAsync(string userid);
+        Task<User> GetByUserIdAsync(string userid);
+        Task<User?> GetUserByUsernameAsync(string username);
         Task<IEnumerable<User>> GetAllUsersAsync();
-        Task<User> GetUserByIdAsync(int id);
         Task CreateUserAsync(User user);
-        void UpdateUser(User user);
-        Task DeleteUserAsync(int id);
+        Task UpdateUserAsync(User user);
+        Task DeleteUserAsync(string userid);
+        Task<User> GetUserByIdAsync(string id);
     }
 }

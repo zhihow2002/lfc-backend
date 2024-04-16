@@ -12,34 +12,17 @@ namespace ClaimsPlugin.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginCommand command)
+        public async Task<BaseApiResponse<object>> Login([FromBody] LoginCommand command)
         {
-            try
-            {
-                var token = await _mediator.Send(command);
-                if (token != string.Empty)
-                {
-                    var response = BaseApiResponse<object>.SuccessResponse(
-                        new { Token = token },
-                        "Login successful."
-                    );
-                    return Ok(new { response });
-                }
-                else
-                {
-                    var errorResponse = BaseApiResponse<object>.FailureResponse(
-                        "Login failed. Unauthorized access."
-                    );
-                    return Unauthorized(errorResponse);
-                }
-            }
-            catch (UnauthorizedAccessException)
-            {
-                var errorResponse = BaseApiResponse<object>.FailureResponse(
-                    "Login failed. Unauthorized access."
-                );
-                return Unauthorized(errorResponse);
-            }
+            return await _mediator.Send(command);
+        }
+
+        [HttpPost("refresh")]
+        public async Task<BaseApiResponse<object>> RefreshToken(
+            [FromBody] RefreshTokenCommand command
+        )
+        {
+            return await _mediator.Send(command);
         }
     }
 }

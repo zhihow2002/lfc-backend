@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
+
 namespace ClaimsPlugin.Application.Commands.AuthCommands
 {
-    public class LoginCommand : IRequest<BaseApiResponse<object>>
+    public class RefreshTokenCommand : IRequest<BaseApiResponse<object>>
     {
-        public string Userid { get; }
-        public string Password { get; }
+        public string OldRefreshToken { get; set; }
 
-        public LoginCommand(string userid, string password)
+        public RefreshTokenCommand(string oldRefreshToken)
         {
-            Userid = userid;
-            Password = password;
+            OldRefreshToken = oldRefreshToken;
         }
     }
 }

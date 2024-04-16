@@ -6,6 +6,7 @@ using ClaimsPlugin.Domain.Interfaces;
 using ClaimsPlugin.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ClaimsPlugin.Application.Services
@@ -15,16 +16,25 @@ namespace ClaimsPlugin.Application.Services
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly ILogger<AuthenticationService> _logger;
 
         public AuthenticationService(
             IConfiguration configuration,
             IUserRepository userRepository,
-            IPasswordHasher<User> passwordHasher
+            IPasswordHasher<User> passwordHasher,
+            ILogger<AuthenticationService> logger
         )
         {
             _configuration = configuration;
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _logger = logger;
+        }
+
+        public string GenerateRefreshToken(User user)
+        {
+            // Example of generating a simple unique identifier as a refresh token
+            return Guid.NewGuid().ToString();
         }
 
         public async Task<User?> AuthenticateAsync(string username, string password)
@@ -63,8 +73,8 @@ namespace ClaimsPlugin.Application.Services
                 Subject = new ClaimsIdentity(
                     new[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        //    new Claim(ClaimTypes., user.Username)
+                        new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                        //new Claim(ClaimTypes.Name, user.UserId),
                         // Add more claims as needed
                     }
                 ),
@@ -77,6 +87,86 @@ namespace ClaimsPlugin.Application.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public async Task<string> RefreshTokenAsync(string oldToken)
+        {
+            // Validate the existing token
+            if (
+                string.IsNullOrEmpty(oldToken)
+                || !ValidateToken(oldToken, out ClaimsPrincipal principal)
+            )
+            {
+                return null;
+            }
+
+            // Assuming the NameIdentifier claim is the user's identifier
+            var userId = principal
+                .Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                ?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return null;
+            }
+
+            // Retrieve user based on userId
+            var user = await _userRepository.GetUserByUsernameAsync(userId);
+            ;
+            if (user == null)
+            {
+                return null;
+            }
+
+            // Generate a new JWT token for the user
+            return GenerateJwtToken(user);
+        }
+
+        public bool ValidateToken(string token, out ClaimsPrincipal principal)
+        {
+            principal = null;
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Key"]);
+
+            try
+            {
+                var validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+
+                principal = tokenHandler.ValidateToken(
+                    token,
+                    validationParameters,
+                    out SecurityToken validatedToken
+                );
+
+                bool isValid =
+                    validatedToken is JwtSecurityToken jwtSecurityToken
+                    && jwtSecurityToken.Header.Alg.Equals(
+                        SecurityAlgorithms.HmacSha256Signature,
+                        StringComparison.InvariantCultureIgnoreCase
+                    );
+
+                if (!isValid)
+                {
+                    _logger.LogWarning("Token validation failed. Token: {Token}", token);
+                }
+
+                return isValid;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "Token validation failed with exception. Token: {Token}",
+                    token
+                );
+                return false;
+            }
         }
     }
 }

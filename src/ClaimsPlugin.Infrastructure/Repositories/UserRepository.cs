@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ClaimsPlugin.Domain.Interfaces;
 using ClaimsPlugin.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,36 +15,52 @@ namespace ClaimsPlugin.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<User> GetByUsernidAsync(string userid)
+        public async Task<User> GetByUserIdAsync(string userid)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userid)
                 ?? throw new Exception("User not found.");
         }
 
-        public async Task<User?> GetUserByUsernameAsync(string userid)
+        public async Task<User?> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userid);
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == username);
         }
 
-        public Task<IEnumerable<User>> GetAllUsersAsync()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return null;
+            return await _context.Users.ToListAsync();
         }
 
-        public Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(User user)
         {
-            return null;
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateUser(User user) { }
-
-        public Task DeleteUserAsync(int id) { 
-            return null;
+        public async Task UpdateUserAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<User> GetUserByIdAsync(int id)
+        public async Task DeleteUserAsync(string userid)
         {
-            return null;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userid);
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("User not found.");
+            }
+        }
+
+        public async Task<User> GetUserByIdAsync(string id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == id)
+                ?? throw new Exception("User not found.");
         }
     }
 }

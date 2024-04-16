@@ -22,7 +22,7 @@ public class UserService : IUserService
         return _mapper.Map<IEnumerable<UserReadDto>>(users);
     }
 
-    public async Task<UserReadDto> GetUserByIdAsync(int id)
+    public async Task<UserReadDto> GetUserByIdAsync(string id)
     {
         var user = await _userRepository.GetUserByIdAsync(id);
         return _mapper.Map<UserReadDto>(user);
@@ -35,17 +35,17 @@ public class UserService : IUserService
         return _mapper.Map<UserReadDto>(user);
     }
 
-    public async Task UpdateUserAsync(int id, UserUpdateDto userUpdateDto)
+    public async Task UpdateUserAsync(string id, UserUpdateDto userUpdateDto)
     {
         var user = await _userRepository.GetUserByIdAsync(id);
         if (user != null)
         {
             _mapper.Map(userUpdateDto, user);
-            _userRepository.UpdateUser(user);
+            _userRepository.UpdateUserAsync(user);
         }
     }
 
-    public async Task DeleteUserAsync(int id)
+    public async Task DeleteUserAsync(string id)
     {
         await _userRepository.DeleteUserAsync(id);
     }

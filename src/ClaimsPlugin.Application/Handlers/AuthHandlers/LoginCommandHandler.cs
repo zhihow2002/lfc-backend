@@ -4,10 +4,11 @@ using ClaimsPlugin.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
 
 namespace ClaimsPlugin.Application.Handlers.AuthHandlers
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, string>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand,  BaseApiResponse<object>>
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<LoginCommandHandler> _logger;
@@ -21,7 +22,7 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
             _logger = logger;
         }
 
-        public async Task<string> Handle(LoginCommand command, CancellationToken cancellationToken)
+        public async Task< BaseApiResponse<object>> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -31,11 +32,17 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
                 );
                 if (user == null)
                 {
-                    throw new UnauthorizedAccessException("Invalid credentials.");
+                    return BaseApiResponse<object>.FailureResponse("Invalid credentials.");
                 }
 
-                // Generate JWT token
-                return _authenticationService.GenerateJwtToken(user);
+                var accessToken = _authenticationService.GenerateJwtToken(user);
+                var refreshToken = _authenticationService.GenerateRefreshToken(user);
+                var tokens = new { AccessToken = accessToken, RefreshToken = refreshToken };
+
+                return BaseApiResponse<object>.SuccessResponse(
+                    tokens,
+                    "Authentication successful."
+                );
             }
             catch (Exception ex)
             {
@@ -44,7 +51,9 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
                     "Error occurred during authentication for user {UserId}",
                     command.Userid
                 );
-                return ""; // Use a more specific error status code
+                return BaseApiResponse<object>.FailureResponse(
+                    "An error occurred during the login process."
+                );
             }
         }
     }
