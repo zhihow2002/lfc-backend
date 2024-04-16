@@ -117,7 +117,13 @@ namespace ClaimsPlugin.Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -130,7 +136,8 @@ namespace ClaimsPlugin.Infrastructure.Migrations
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             Email = "test@gmail.com",
                             PasswordHash = "hashed-password",
-                            UserId = "admin"
+                            UserId = 0,
+                            UserName = "admin"
                         });
                 });
 

@@ -17,13 +17,13 @@ namespace ClaimsPlugin.Infrastructure.Repositories
 
         public async Task<User> GetByUserIdAsync(string userid)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userid)
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserName == userid)
                 ?? throw new Exception("User not found.");
         }
 
         public async Task<User?> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == username);
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
@@ -45,7 +45,7 @@ namespace ClaimsPlugin.Infrastructure.Repositories
 
         public async Task DeleteUserAsync(string userid)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userid);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userid);
             if (user != null)
             {
                 _context.Users.Remove(user);
@@ -57,7 +57,7 @@ namespace ClaimsPlugin.Infrastructure.Repositories
             }
         }
 
-        public async Task<User> GetUserByIdAsync(string id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.UserId == id)
                 ?? throw new Exception("User not found.");

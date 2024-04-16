@@ -5,7 +5,8 @@ namespace ClaimsPlugin.Domain.Models
     public class User : BaseAuditableEntity
     {
         public Guid Id { get; set; } = Guid.Empty!;
-        public string? UserId { get; set; }
+        public int UserId { get; set; }
+        public string? UserName { get; set; }
         public string? Email { get; set; }
         public string? PasswordHash { get; set; }
         public virtual ICollection<TokenManager> Tokens { get; set; } = new List<TokenManager>();

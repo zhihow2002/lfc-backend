@@ -10,6 +10,6 @@ namespace ClaimsPlugin.Domain.Interfaces
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(string userid);
-        Task<User> GetUserByIdAsync(string id);
+        Task<User> GetUserByIdAsync(int id);
     }
 }

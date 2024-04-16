@@ -10,5 +10,8 @@ dotnet ef migrations add InitialCreate --startup-project ../ClaimsPlugin.Api/Cla
 ## Add Seed Data
 dotnet ef migrations add AddSeedData --startup-project ../ClaimsPlugin.Api/ClaimsPlugin.Api.csproj
 
+## Remove Migrations 
+dotnet ef migrations remove --startup-project ../ClaimsPlugin.Api/ClaimsPlugin.Api.csproj
+
 ## Update Database
 dotnet ef database update --startup-project ../ClaimsPlugin.Api/ClaimsPlugin.Api.csproj

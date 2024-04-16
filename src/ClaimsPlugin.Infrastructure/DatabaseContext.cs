@@ -35,14 +35,25 @@ namespace ClaimsPlugin.Infrastructure
                     new User
                     {
                         Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                        UserId = "admin",
+                        UserName = "admin",
                         PasswordHash = "hashed-password",
                         Email = "test@gmail.com"
                     }
-                // Add more users as needed
                 );
+
+            // Set UserId property to be generated on add
+            modelBuilder.Entity<User>().Property(u => u.UserId).ValueGeneratedOnAdd();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(
+                    "Data Source=localhost;Initial Catalog=LFC;Integrated Security=True;TrustServerCertificate=True;MultipleActiveResultSets=True",
+                    b => b.MigrationsAssembly(typeof(DatabaseContext).Assembly.FullName)
+                );
+            }
+        }
     }
 }

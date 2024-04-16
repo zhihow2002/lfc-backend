@@ -13,7 +13,7 @@ namespace ClaimsPlugin.Infrastructure.Migrations
         {
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "InsertBy", "InsertDateTime", "PasswordHash", "UpdatedBy", "UpdatedOn", "UserId" },
+                columns: new[] { "Id", "Email", "InsertBy", "InsertDateTime", "PasswordHash", "UpdatedBy", "UpdatedOn", "UserName" },
                 values: new object[] { new Guid("00000000-0000-0000-0000-000000000001"), "test@gmail.com", null, null, "hashed-password", null, null, "admin" });
         }
 

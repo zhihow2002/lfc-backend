@@ -10,7 +10,7 @@ namespace ClaimsPlugin.Infrastructure.DataSeeder
             {
                 var users = new List<User>
                 {
-                    new User { UserId = "testuser", PasswordHash = "hashedpassword" } // Hash the password
+                    new User { UserName = "testuser", PasswordHash = "hashedpassword" } // Hash the password
                     // Add more users as needed
                 };
 
