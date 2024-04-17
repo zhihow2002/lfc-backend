@@ -7,7 +7,9 @@ namespace ClaimsPlugin.Application.Dtos
 {
     public class UserReadDto
     {
-        public int Id { get; set; }
+    
+        public Guid Id { get; set; }
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
     }

@@ -22,11 +22,11 @@ namespace ClaimsPlugin.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<BaseApiResponse<UserReadDto>> GetUser(int userId,CancellationToken cancellationToken)
+        public async Task<BaseApiResponse<UserReadDto>> GetUser(
+            int userId,
+            CancellationToken cancellationToken
+        )
         {
-            // Implement your logic to fetch a user by id using MediatR
-            // Example: var user = await _mediator.Send(new GetUserQuery(id));
-            // return Ok(user);
             return await _mediator.Send(new GetUserQuery(userId));
         }
 

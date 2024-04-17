@@ -3,6 +3,7 @@ using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
 
 namespace ClaimsPlugin.Api.Controllers
 {
@@ -14,6 +15,7 @@ namespace ClaimsPlugin.Api.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
+        [OpenApiOperation("Login To get Access Token and Refresh Token", "")]
         public async Task<BaseApiResponse<object>> Login(
             [FromBody] LoginCommand command,
             CancellationToken cancellationToken
@@ -23,6 +25,7 @@ namespace ClaimsPlugin.Api.Controllers
         }
 
         [HttpPost("refresh")]
+        [OpenApiOperation("Get Refresh Token", "")]
         public async Task<BaseApiResponse<object>> RefreshToken(
             [FromBody] RefreshTokenCommand command,
             CancellationToken cancellationToken
