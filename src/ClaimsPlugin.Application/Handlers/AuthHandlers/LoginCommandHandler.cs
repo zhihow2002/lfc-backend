@@ -5,10 +5,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
+using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
 
 namespace ClaimsPlugin.Application.Handlers.AuthHandlers
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand,  BaseApiResponse<object>>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseApiResponse<object>>
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<LoginCommandHandler> _logger;
@@ -22,7 +23,7 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
             _logger = logger;
         }
 
-        public async Task< BaseApiResponse<object>> Handle(LoginCommand command, CancellationToken cancellationToken)
+        public async Task<BaseApiResponse<object>> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
             try
             {

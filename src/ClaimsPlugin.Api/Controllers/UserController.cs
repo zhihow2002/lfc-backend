@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using ClaimsPlugin.Application.Commands.UsersCommands;
+using ClaimsPlugin.Application.Dtos;
 using ClaimsPlugin.Application.Queries.UsersQueries;
 using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
+using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,8 +21,8 @@ namespace ClaimsPlugin.Api.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("{id}")]
-        public async Task<BaseApiResponse<UserReadDto>> GetUser(string userId)
+        [HttpGet]
+        public async Task<BaseApiResponse<UserReadDto>> GetUser(int userId,CancellationToken cancellationToken)
         {
             // Implement your logic to fetch a user by id using MediatR
             // Example: var user = await _mediator.Send(new GetUserQuery(id));

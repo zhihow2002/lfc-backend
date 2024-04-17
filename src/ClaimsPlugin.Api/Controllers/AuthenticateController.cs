@@ -1,6 +1,7 @@
 using ClaimsPlugin.Application.Commands.AuthCommands;
 using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClaimsPlugin.Api.Controllers
@@ -12,17 +13,22 @@ namespace ClaimsPlugin.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost("login")]
-        public async Task<BaseApiResponse<object>> Login([FromBody] LoginCommand command)
+        [AllowAnonymous]
+        public async Task<BaseApiResponse<object>> Login(
+            [FromBody] LoginCommand command,
+            CancellationToken cancellationToken
+        )
         {
-            return await _mediator.Send(command);
+            return await _mediator.Send(command, cancellationToken);
         }
 
         [HttpPost("refresh")]
         public async Task<BaseApiResponse<object>> RefreshToken(
-            [FromBody] RefreshTokenCommand command
+            [FromBody] RefreshTokenCommand command,
+            CancellationToken cancellationToken
         )
         {
-            return await _mediator.Send(command);
+            return await _mediator.Send(command, cancellationToken);
         }
     }
 }

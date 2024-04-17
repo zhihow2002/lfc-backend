@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using ClaimsPlugin.Application.Dtos;
 using ClaimsPlugin.Application.Queries.UsersQueries;
 using ClaimsPlugin.Domain.Interfaces;
@@ -10,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ClaimsPlugin.Application.Handlers.UsersHandlers
 {
-    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, BaseApiResponse<object>>
+    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, BaseApiResponse<UserReadDto>>
     {
         private readonly ILogger<GetUserQueryHandler> _logger;
         private readonly IUserRepository _userRepository;
@@ -32,30 +29,30 @@ namespace ClaimsPlugin.Application.Handlers.UsersHandlers
             try
             {
                 // Retrieve user from the repository based on the query
-                var user = await _userRepository.GetUserByIdAsync(query.UserId);
+                var user = await _userRepository.GetUserByIdAsync(query.Userid);
 
                 // Check if the user exists
                 if (user == null)
                 {
-                    return BaseApiResponse<UserReadDto>.NotFound(
-                        $"User with ID {query.UserId} not found."
+                    return BaseApiResponse<UserReadDto>.FailureResponse(
+                        $"User with ID {query.Userid} not found."
                     );
                 }
 
                 // Map the user entity to a response DTO
                 var userResponse = new UserReadDto
                 {
-                    UserId = user.UserId,
-                    UserName = user.UserName,
+                    Id = user.UserId,
+                    Username = user.UserName,
                     Email = user.Email,
                 };
 
-                return BaseApiResponse<UserReadDto>.Success(userResponse);
+                return BaseApiResponse<UserReadDto>.SuccessResponse(userResponse);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to get user with ID {UserId}.", query.UserId);
-                return BaseApiResponse<UserReadDto>.Error(
+                _logger.LogError(ex, "Failed to get user with ID {UserId}.", query.Userid);
+                return BaseApiResponse<UserReadDto>.FailureResponse(
                     "An error occurred while processing the request."
                 );
             }
