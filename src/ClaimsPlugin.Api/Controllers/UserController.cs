@@ -27,22 +27,23 @@ namespace ClaimsPlugin.Api.Controllers
             CancellationToken cancellationToken
         )
         {
-            return await _mediator.Send(new GetUserQuery(userId));
+            return await _mediator.Send(new GetUserQuery(userId), cancellationToken);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
+        public async Task<SingleResponse<Guid>> CreateUser(
+            [FromBody] CreateUserCommand command,
+            CancellationToken cancellationToken
+        )
         {
-            // Implement your logic to create a user using MediatR
-            // Example: var result = await _mediator.Send(command);
-            // return Ok(result);
-            return Ok();
+            return await _mediator.Send(command, cancellationToken);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(
             string userId,
-            [FromBody] UpdateUserCommand command
+            [FromBody] UpdateUserCommand command,
+            CancellationToken cancellationToken
         )
         {
             // Implement your logic to update a user by id using MediatR
@@ -53,7 +54,7 @@ namespace ClaimsPlugin.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
         {
             // Implement your logic to delete a user by id using MediatR
             // Example: var result = await _mediator.Send(new DeleteUserCommand(id));

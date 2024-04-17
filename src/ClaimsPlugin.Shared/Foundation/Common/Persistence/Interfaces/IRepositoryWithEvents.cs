@@ -1,0 +1,13 @@
+using Ardalis.Specification;
+using ClaimsPlugin.Shared.Foundation.Features.DomainDrivenDesign.Interfaces;
+
+namespace ClaimsPlugin.Shared.Foundation.Common.Persistence.Interfaces;
+
+/// <summary>
+///     A special (read/write) repository for an aggregate root,
+///     that also adds EntityCreated, EntityUpdated or EntityDeleted
+///     events to the DomainEvents of the entities before adding,
+///     updating or deleting them.
+/// </summary>
+public interface IRepositoryWithEvents<T> : IRepositoryBase<T>
+    where T : class, IAggregateRoot { }

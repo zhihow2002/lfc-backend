@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
+using ClaimsPlugin.Application.Commands.UsersCommands;
 using ClaimsPlugin.Application.Dtos;
 using ClaimsPlugin.Application.Services.Interfaces;
 using ClaimsPlugin.Domain.Interfaces;
@@ -28,11 +29,11 @@ public class UserService : IUserService
         return _mapper.Map<UserReadDto>(user);
     }
 
-    public async Task<UserReadDto> CreateUserAsync(UserCreateDto userCreateDto)
+    public async Task<UserCreateDto> CreateUserAsync(CreateUserCommand createUserCommand)
     {
-        var user = _mapper.Map<User>(userCreateDto);
+        var user = _mapper.Map<User>(createUserCommand);
         await _userRepository.CreateUserAsync(user);
-        return _mapper.Map<UserReadDto>(user);
+        return _mapper.Map<UserCreateDto>(user);
     }
 
     public async Task UpdateUserAsync(int userId, UserUpdateDto userUpdateDto)

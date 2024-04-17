@@ -40,13 +40,7 @@ namespace ClaimsPlugin.Application.Handlers.UsersHandlers
                 }
 
                 // Map the user entity to a response DTO
-                var userResponse = new UserReadDto
-                {
-                    Id = user.Id,
-                    UserId = user.UserId,
-                    Username = user.UserName,
-                    Email = user.Email,
-                };
+                var userResponse = new UserReadDto { Id = user.Id, UserId = user.UserId, Username = user.UserName, Email = user.Email, };
 
                 return BaseApiResponse<UserReadDto>.SuccessResponse(userResponse);
             }
