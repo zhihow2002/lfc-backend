@@ -1,8 +1,9 @@
-using ClaimsPlugin.Shared.Common.Models;
+using ClaimsPlugin.Shared.Foundation.Common.Persistence.Models;
+using ClaimsPlugin.Shared.Foundation.Features.DomainDrivenDesign.Interfaces;
 
 namespace ClaimsPlugin.Domain.Models
 {
-    public class User : BaseAuditableEntity
+    public class User : BaseAuditableEntity, IAggregateRoot
     {
         public Guid Id { get; set; } = Guid.Empty!;
         public int UserId { get; set; }

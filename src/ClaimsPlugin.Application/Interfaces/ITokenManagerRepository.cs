@@ -1,4 +1,4 @@
-namespace ClaimsPlugin.Domain.Interfaces
+namespace ClaimsPlugin.Application.Interfaces
 {
     public interface ITokenManagerRepository { }
 }

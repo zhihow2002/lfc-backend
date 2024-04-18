@@ -20,6 +20,7 @@
   <ItemGroup>
   <ProjectReference Include="..\..\src\ClaimsPlugin.Shared\ClaimsPlugin.Shared.csproj" />
   <ProjectReference Include="..\..\src\ClaimsPlugin.Domain\ClaimsPlugin.Domain.csproj" />
+  <ProjectReference Include="..\..\src\ClaimsPlugin.Application\ClaimsPlugin.Application.csproj" />
   </ItemGroup>
 
 </Project>

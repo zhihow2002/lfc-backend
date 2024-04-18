@@ -1,5 +1,4 @@
 using ClaimsPlugin.Application.Commands.UsersCommands;
-using ClaimsPlugin.Application.Dtos;
 using ClaimsPlugin.Domain.Interfaces;
 using ClaimsPlugin.Domain.Models;
 using ClaimsPlugin.Shared.Foundation.Common.Persistence.Interfaces;
@@ -18,35 +17,31 @@ namespace ClaimsPlugin.Application.Handlers.UsersHandlers
 
         public CreateUserCommandHandler(
             ILogger<CreateUserCommandHandler> logger,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            IRepositoryWithEvents<User> userRepositoryWithEvents,
+            IReadRepository<User> userReadRepository
         )
         {
             _logger = logger;
             _userRepository = userRepository;
+            _userRepositoryWithEvents = userRepositoryWithEvents;
+            _userReadRepository = userReadRepository;
         }
 
-        public async Task<SingleResponse<Guid>> Handle(
+        public async Task<SingleResponse<Guid>?> Handle(
             CreateUserCommand command,
             CancellationToken cancellationToken
         )
         {
-            try
+            var user = await _userRepository.GetUserByUsernameAsync(command.Username);
+
+            // Check if the user exists
+            if (user != null)
             {
-                var user = await _userRepository.GetUserByUsernameAsync(command.Username);
-
-                // Check if the user exists
-                if (user != null)
-                {
-                    return await SingleResponse<Guid>.FailAsync("User exisit");
-                }
-
-
-                return null;
+                return await SingleResponse<Guid>.FailAsync("User exisit");
             }
-            catch {
 
-              throw;
-            }
+            return null;
         }
     }
 }

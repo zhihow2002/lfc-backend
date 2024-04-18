@@ -1,4 +1,4 @@
-using ClaimsPlugin.Shared.Common.Models;
+using ClaimsPlugin.Shared.Foundation.Common.Persistence.Models;
 
 namespace ClaimsPlugin.Domain.Models
 {
