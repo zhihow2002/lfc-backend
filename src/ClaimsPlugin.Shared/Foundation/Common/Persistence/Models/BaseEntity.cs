@@ -1,18 +1,12 @@
-using Ardalis.Specification;
-using ClaimsPlugin.Shared.Foundation.Features.EventSourcing.Sources.Domain.Models;
-using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
+using ClaimsPlugin.Shared.Foundation.Common.Persistence.Interfaces;
+using ClaimsPlugin.Shared.Foundation.Features.EventSourcing.Sources.Domain.Models;
+using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling;
 
 namespace ClaimsPlugin.Shared.Foundation.Common.Persistence.Models;
 
-public abstract class BaseEntity : BaseEntity<Guid>
-{
-}
+public abstract class BaseEntity : BaseEntity<Guid> { }
 
 public abstract class BaseEntity<TId> : IEntity<TId>
 {
@@ -48,7 +42,7 @@ public abstract class BaseEntity<TId> : IEntity<TId>
             action();
         }
     }
-    
+
     // TODO: To switch to new bottom type once C# team has introduced it.
     // Trace the discussion here https://github.com/dotnet/csharplang/issues/538.
     // Once this is included, the compiler will be able to detect unreachable codes when this function is used.

@@ -4,6 +4,7 @@ using ClaimsPlugin.Shared.Foundation.Common.Persistence.Interfaces;
 using ClaimsPlugin.Shared.Foundation.Features.DomainDrivenDesign.Interfaces;
 using ClaimsPlugin.Shared.Foundation.Features.EventSourcing.Sources.Domain.Events;
 
+
 namespace ClaimsPlugin.Shared.Foundation.Common.Persistence.Decorators;
 
 /// <summary>
@@ -195,5 +196,15 @@ public class EventAddingRepositoryDecorator<T> : IRepositoryWithEvents<T>
     public Task<int> CountAsync(CancellationToken cancellationToken = default)
     {
         return _decorated.CountAsync(cancellationToken);
+    }
+
+    public Task DeleteRangeAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IAsyncEnumerable<T> AsAsyncEnumerable(ISpecification<T> specification)
+    {
+        throw new NotImplementedException();
     }
 }
