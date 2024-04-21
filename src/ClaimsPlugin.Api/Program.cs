@@ -1,19 +1,10 @@
+using System.Reflection;
 using ClaimsPlugin.Api.Configurations;
-using ClaimsPlugin.Application.Handlers.AuthHandlers;
-using ClaimsPlugin.Application.Services;
-using ClaimsPlugin.Application.Services.Interfaces;
-using ClaimsPlugin.Domain.Interfaces;
-using ClaimsPlugin.Domain.Models;
 using ClaimsPlugin.Infrastructure;
-using ClaimsPlugin.Infrastructure.Repositories;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using AutoMapper;
-
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
@@ -54,15 +45,24 @@ namespace ClaimsPlugin.Api
             builder.AddConfigurations(builder.Environment);
 
             builder.Services.AddControllers();
-            builder.Services.AddMediatR(typeof(LoginCommandHandler).Assembly);
+
+            // Automatically register all MediatR handlers
+            var applicationAssembly = Assembly.Load("ClaimsPlugin.Application");
+            builder.Services.AddMediatRHandlers(applicationAssembly);
+
+            // Automatically register all repositories with events
+            // Assuming the implementations of IRepositoryWithEvents are in the Infrastructure assembly
+            var sharedAssembly = Assembly.Load("ClaimsPlugin.Shared");
+            builder.Services.AddScopedRepositoriesWithEvents(sharedAssembly);
+            builder.Services.AddRepositoriesWithEventsDecorators(sharedAssembly);
 
             // Register AutoMapper - Ensure this comes after AddControllers()
             //builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             // Register application services
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-            builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            // builder.Services.AddScoped<IUserRepository, UserRepository>();
+            // builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+            // builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
             // Register your DbContext here, before the WebApplication is built
             builder.Services.AddDbContext<DatabaseContext>(

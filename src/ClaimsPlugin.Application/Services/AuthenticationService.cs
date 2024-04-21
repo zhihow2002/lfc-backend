@@ -101,7 +101,7 @@ namespace ClaimsPlugin.Application.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<string> RefreshTokenAsync(string oldToken)
+        public async Task<string?> RefreshTokenAsync(string oldToken)
         {
             // Validate the existing token
             if (
@@ -150,11 +150,10 @@ namespace ClaimsPlugin.Application.Services
                     ClockSkew = TimeSpan.Zero
                 };
 
-                SecurityToken validatedToken;
                 principal = tokenHandler.ValidateToken(
                     token,
                     validationParameters,
-                    out validatedToken
+                    out SecurityToken validatedToken
                 );
 
                 if (validatedToken is JwtSecurityToken jwtSecurityToken)

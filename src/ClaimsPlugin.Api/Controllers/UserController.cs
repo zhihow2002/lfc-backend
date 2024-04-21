@@ -1,7 +1,5 @@
-using System;
-using System.Threading.Tasks;
 using ClaimsPlugin.Application.Commands.UsersCommands;
-using ClaimsPlugin.Application.Dtos;
+using ClaimsPlugin.Application.Dtos.UserDto;
 using ClaimsPlugin.Application.Queries.UsersQueries;
 using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
 using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
@@ -12,14 +10,10 @@ namespace ClaimsPlugin.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UserController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public UserController(IMediator mediator)
-        {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        }
+        private readonly IMediator _mediator =
+            mediator ?? throw new ArgumentNullException(nameof(mediator));
 
         [HttpGet]
         public async Task<BaseApiResponse<UserReadDto>> GetUser(
@@ -39,27 +33,22 @@ namespace ClaimsPlugin.Api.Controllers
             return await _mediator.Send(command, cancellationToken);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(
-            string userId,
+        [HttpPut]
+        public async Task<Response> UpdateUser(
             [FromBody] UpdateUserCommand command,
             CancellationToken cancellationToken
         )
         {
-            // Implement your logic to update a user by id using MediatR
-            // Example: command.UserId = userId;
-            //          var result = await _mediator.Send(command);
-            // return Ok(result);
-            return Ok();
+            return await _mediator.Send(command, cancellationToken);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
+        [HttpDelete]
+        public async Task<Response> DeleteUser(
+            [FromBody] DeleteUserCommand command,
+            CancellationToken cancellationToken
+        )
         {
-            // Implement your logic to delete a user by id using MediatR
-            // Example: var result = await _mediator.Send(new DeleteUserCommand(id));
-            // return Ok(result);
-            return Ok();
+            return await _mediator.Send(command, cancellationToken);
         }
     }
 }

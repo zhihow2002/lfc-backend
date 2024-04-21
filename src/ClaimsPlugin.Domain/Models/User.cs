@@ -12,5 +12,19 @@ namespace ClaimsPlugin.Domain.Models
         public string? PasswordHash { get; set; }
         public virtual ICollection<TokenManager> Tokens { get; set; } = new List<TokenManager>();
         public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+
+        public User(string userName, string email, string passwordHash)
+        {
+            UserName = userName;
+            Email = email;
+            PasswordHash = passwordHash;
+        }
+
+        public void UpdateUser(string userName, string email, string passwordHash)
+        {
+            UserName = userName;
+            Email = email;
+            PasswordHash = passwordHash;
+        }
     }
 }

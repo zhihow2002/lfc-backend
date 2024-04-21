@@ -1,6 +1,6 @@
 namespace ClaimsPlugin.Api.Configurations
 {
-    public static class ConfigurationExtensions 
+    public static class ConfigurationExtensions
     {
         public static void AddConfigurations(
             this WebApplicationBuilder builder,

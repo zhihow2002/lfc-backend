@@ -32,12 +32,13 @@ namespace ClaimsPlugin.Infrastructure
             modelBuilder
                 .Entity<User>()
                 .HasData(
-                    new User
+                    new
                     {
-                        Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                        Id = Guid.NewGuid(),
+                        UserId = 1,
                         UserName = "admin",
-                        PasswordHash = "hashed-password",
-                        Email = "test@gmail.com"
+                        Email = "admin@gmail.com",
+                        PasswordHash = "admin"
                     }
                 );
 

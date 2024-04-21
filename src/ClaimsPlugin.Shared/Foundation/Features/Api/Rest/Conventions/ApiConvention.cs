@@ -1,4 +1,5 @@
-using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling;
+﻿using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling;
+using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
@@ -17,10 +18,7 @@ public static class ApiConvention
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Any)]
         [ApiConventionTypeMatch(ApiConventionTypeMatchBehavior.Any)]
             object cancellationToken
-    )
-    {
-        throw new NotSupportedException();
-    }
+    ) { }
 
     [ProducesResponseType(200)]
     [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]
@@ -33,10 +31,7 @@ public static class ApiConvention
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Any)]
         [ApiConventionTypeMatch(ApiConventionTypeMatchBehavior.Any)]
             object cancellationToken
-    )
-    {
-        throw new NotSupportedException();
-    }
+    ) { }
 
     [ProducesResponseType(200)]
     [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]
@@ -49,10 +44,7 @@ public static class ApiConvention
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Any)]
         [ApiConventionTypeMatch(ApiConventionTypeMatchBehavior.Any)]
             object cancellationToken
-    )
-    {
-        throw new NotSupportedException();
-    }
+    ) { }
 
     [ProducesResponseType(200)]
     [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]
@@ -65,8 +57,5 @@ public static class ApiConvention
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Any)]
         [ApiConventionTypeMatch(ApiConventionTypeMatchBehavior.Any)]
             object cancellationToken
-    )
-    {
-        throw new NotSupportedException();
-    }
+    ) { }
 }

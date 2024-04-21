@@ -1,4 +1,5 @@
 using ClaimsPlugin.Application.Dtos;
+using ClaimsPlugin.Application.Dtos.UserDto;
 using ClaimsPlugin.Application.Queries.UsersQueries;
 using ClaimsPlugin.Domain.Interfaces;
 using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
@@ -28,10 +29,8 @@ namespace ClaimsPlugin.Application.Handlers.UsersHandlers
         {
             try
             {
-                // Retrieve user from the repository based on the query
                 var user = await _userRepository.GetUserByIdAsync(query.Userid);
 
-                // Check if the user exists
                 if (user == null)
                 {
                     return BaseApiResponse<UserReadDto>.FailureResponse(

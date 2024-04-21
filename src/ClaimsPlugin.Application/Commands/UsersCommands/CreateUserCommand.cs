@@ -1,10 +1,6 @@
 using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Commands;
 using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClaimsPlugin.Application.Commands.UsersCommands
 {
