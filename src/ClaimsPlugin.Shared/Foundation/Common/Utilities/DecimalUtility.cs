@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Foundation.Features.DomainDrivenDesign.ValueObjects;
+using ClaimsPlugin.Shared.Foundation.Features.DomainDrivenDesign.ValueObjects;
 
 namespace ClaimsPlugin.Shared.Foundation.Common.Utilities;
 

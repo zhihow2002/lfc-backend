@@ -1,51 +1,51 @@
-﻿using Foundation.Common.Persistence.Models;
-using Foundation.Features.ExceptionHandling.Exceptions;
-using Foundation.Features.Validation.Simple;
+﻿//using Foundation.Common.Persistence.Models;
+//using Foundation.Features.ExceptionHandling.Exceptions;
+//using Foundation.Features.Validation.Simple;
 
-namespace Foundation.Features.DomainDrivenDesign.ValueObjects;
+//namespace Foundation.Features.DomainDrivenDesign.ValueObjects;
 
-public class LongDescription : BaseValueObject
-{
-    protected LongDescription()
-    {
-    }
+//public class LongDescription : BaseValueObject
+//{
+//    protected LongDescription()
+//    {
+//    }
 
-    private LongDescription(string value)
-    {
-        Value = value;
-    }
+//    private LongDescription(string value)
+//    {
+//        Value = value;
+//    }
 
-    public string Value { get; private set; } = default!;
+//    public string Value { get; private set; } = default!;
 
-    public static LongDescription Create(string description)
-    {
-        if (description.IsNullOrWhiteSpace(out string? descriptionNullOrWhiteSpaceErrorMessage))
-        {
-            throw new DomainException(descriptionNullOrWhiteSpaceErrorMessage);
-        }
+//    public static LongDescription Create(string description)
+//    {
+//        if (description.IsNullOrWhiteSpace(out string? descriptionNullOrWhiteSpaceErrorMessage))
+//        {
+//            throw new DomainException(descriptionNullOrWhiteSpaceErrorMessage);
+//        }
 
-        if (description.HasLengthMoreThan(4000, out string? descriptionMaximumLengthErrorMessage))
-        {
-            throw new DomainException(descriptionMaximumLengthErrorMessage);
-        }
+//        if (description.HasLengthMoreThan(4000, out string? descriptionMaximumLengthErrorMessage))
+//        {
+//            throw new DomainException(descriptionMaximumLengthErrorMessage);
+//        }
 
-        return new LongDescription(description);
-    }
-
-
-    public static implicit operator string(LongDescription description)
-    {
-        return description.ToString();
-    }
+//        return new LongDescription(description);
+//    }
 
 
-    public override string ToString()
-    {
-        return Value;
-    }
+//    public static implicit operator string(LongDescription description)
+//    {
+//        return description.ToString();
+//    }
 
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
-}
+
+//    public override string ToString()
+//    {
+//        return Value;
+//    }
+
+//    protected override IEnumerable<object> GetEqualityComponents()
+//    {
+//        yield return Value;
+//    }
+//}

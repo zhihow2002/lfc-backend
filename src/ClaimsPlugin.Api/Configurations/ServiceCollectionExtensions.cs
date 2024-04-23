@@ -2,10 +2,12 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Ardalis.Specification;
+using ClaimsPlugin.Infrastructure.Repositories;
 using ClaimsPlugin.Shared.Foundation.Common.Persistence.Decorators;
 using ClaimsPlugin.Shared.Foundation.Common.Persistence.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ClaimsPlugin.Api.Configurations
 {
@@ -90,31 +92,8 @@ namespace ClaimsPlugin.Api.Configurations
         {
             // Register the base repository with its concrete implementation
             services.AddScoped(
-                typeof(IRepository<>),
-               // typeof(YourConcreteRepositoryImplementation<>)
-            );
+                typeof(IRepository<>), typeof(BaseRepository<>)
 
-            // Register the decorator to wrap the base repository
-            services.AddScoped(
-                typeof(IRepositoryWithEvents<>),
-                serviceProvider =>
-                {
-                    // Resolve the base repository that our decorator will wrap
-                    var decoratedRepositoryType = typeof(IRepository<>).MakeGenericType(typeof(T));
-                    var decoratedRepository = serviceProvider.GetService(decoratedRepositoryType);
-                    if (decoratedRepository == null)
-                    {
-                        throw new InvalidOperationException(
-                            $"The repository of type {decoratedRepositoryType.Name} has not been registered."
-                        );
-                    }
-
-                    // Create the decorator instance
-                    var decoratorType = typeof(EventAddingRepositoryDecorator<>).MakeGenericType(
-                        typeof(T)
-                    );
-                    return Activator.CreateInstance(decoratorType, decoratedRepository);
-                }
             );
 
             return services;

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ClaimsPlugin.Application.Queries.UsersQueries
 {
-    public class GetUserQuery : IRequest<SingleResponse<UserReadDto>>
+    public class GetUserQuery : IRequest<BaseApiResponse<UserReadDto>>
     {
         public int Userid { get; }
 

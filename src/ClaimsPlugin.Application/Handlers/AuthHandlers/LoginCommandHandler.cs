@@ -1,15 +1,12 @@
 using ClaimsPlugin.Application.Commands.AuthCommands;
-using ClaimsPlugin.Application.Interfaces;
 using ClaimsPlugin.Application.Services.Interfaces;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
 using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace ClaimsPlugin.Application.Handlers.AuthHandlers
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseApiResponse<object>>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, SingleResponse<object>>
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<LoginCommandHandler> _logger;
@@ -23,7 +20,7 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
             _logger = logger;
         }
 
-        public async Task<BaseApiResponse<object>> Handle(LoginCommand command, CancellationToken cancellationToken)
+        public async Task<SingleResponse<object>> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -33,14 +30,14 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
                 );
                 if (user == null)
                 {
-                    return BaseApiResponse<object>.FailureResponse("Invalid credentials.");
+                    return SingleResponse<object>.FailAsync("Invalid credentials.");
                 }
 
                 var accessToken = _authenticationService.GenerateJwtToken(user);
                 var refreshToken = _authenticationService.GenerateRefreshToken(user);
                 var tokens = new { AccessToken = accessToken, RefreshToken = refreshToken };
 
-                return BaseApiResponse<object>.SuccessResponse(
+                return SingleResponse<object>.SuccessResponse(
                     tokens,
                     "Authentication successful."
                 );
@@ -52,7 +49,7 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
                     "Error occurred during authentication for user {UserId}",
                     command.Userid
                 );
-                return BaseApiResponse<object>.FailureResponse(
+                return SingleResponse<object>.FailureResponse(
                     "An error occurred during the login process."
                 );
             }

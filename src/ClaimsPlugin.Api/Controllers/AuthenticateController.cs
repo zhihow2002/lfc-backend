@@ -1,5 +1,5 @@
 using ClaimsPlugin.Application.Commands.AuthCommands;
-using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
+using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ namespace ClaimsPlugin.Api.Controllers
         [HttpPost("login")]
         [AllowAnonymous]
         [OpenApiOperation("Login To get Access Token and Refresh Token", "")]
-        public async Task<BaseApiResponse<object>> Login(
+        public async Task<SingleResponse<object>> Login(
             [FromBody] LoginCommand command,
             CancellationToken cancellationToken
         )

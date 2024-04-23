@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ClaimsPlugin.Application.Commands.AuthCommands
 {
-    public class RefreshTokenCommand : IRequest<SingleResponse<object>>
+    public class RefreshTokenCommand : IRequest<BaseApiResponse<object>>
     {
         public string OldAccessToken { get; set; }
 

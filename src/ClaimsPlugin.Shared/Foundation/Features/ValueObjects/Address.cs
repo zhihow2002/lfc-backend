@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using Foundation.Common.Persistence.Models;
-using Foundation.Features.ExceptionHandling.Exceptions;
-using Foundation.Features.Validation.Simple;
+using ClaimsPlugin.Shared.Foundation.Common.Persistence.Models;
+using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling.Exceptions;
+using ClaimsPlugin.Shared.Foundation.Features.Validation.Simple;
 
-namespace Foundation.Features.DomainDrivenDesign.ValueObjects;
+namespace ClaimsPlugin.Shared.Foundation.Features.DomainDrivenDesign.ValueObjects;
 
 public class Address : BaseValueObject
 {

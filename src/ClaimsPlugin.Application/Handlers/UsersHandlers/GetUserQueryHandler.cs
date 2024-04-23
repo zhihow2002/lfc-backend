@@ -1,8 +1,7 @@
-using ClaimsPlugin.Application.Dtos;
 using ClaimsPlugin.Application.Dtos.UserDto;
 using ClaimsPlugin.Application.Queries.UsersQueries;
 using ClaimsPlugin.Domain.Interfaces;
-using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
+using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

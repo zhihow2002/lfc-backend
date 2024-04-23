@@ -1,6 +1,7 @@
 using System.Reflection;
 using ClaimsPlugin.Api.Configurations;
 using ClaimsPlugin.Infrastructure;
+using ClaimsPlugin.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -28,18 +29,6 @@ namespace ClaimsPlugin.Api
             app.Run();
         }
 
-        private static void ConfigureLogging(WebApplicationBuilder builder)
-        {
-            Log.Information("Claims Plugin API Microservice Booting Up...");
-            builder.Host.UseSerilog(
-                (_, services, configuration) =>
-                    configuration
-                        .ReadFrom.Configuration(builder.Configuration)
-                        .ReadFrom.Services(services)
-                        .Enrich.FromLogContext()
-            );
-        }
-
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
             builder.AddConfigurations(builder.Environment);
@@ -50,11 +39,9 @@ namespace ClaimsPlugin.Api
             var applicationAssembly = Assembly.Load("ClaimsPlugin.Application");
             builder.Services.AddMediatRHandlers(applicationAssembly);
 
-            // Automatically register all repositories with events
-            // Assuming the implementations of IRepositoryWithEvents are in the Infrastructure assembly
-            var sharedAssembly = Assembly.Load("ClaimsPlugin.Shared");
-            builder.Services.AddScopedRepositoriesWithEvents(sharedAssembly);
-            builder.Services.AddRepositoriesWithEventsDecorators(sharedAssembly);
+            // Auto-register generic repositories
+            //var repositoryAssembly = typeof(BaseRepository<>).Assembly;
+            //builder.Services.AddRepositoryDecorators(repositoryAssembly);
 
             // Register AutoMapper - Ensure this comes after AddControllers()
             //builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -114,6 +101,18 @@ namespace ClaimsPlugin.Api
                 var logger = services.GetRequiredService<ILogger<DatabaseContext>>();
                 logger.LogError(ex, "An error occurred while migrating the database.");
             }
+        }
+
+        private static void ConfigureLogging(WebApplicationBuilder builder)
+        {
+            Log.Information("Claims Plugin API Microservice Booting Up...");
+            builder.Host.UseSerilog(
+                (_, services, configuration) =>
+                    configuration
+                        .ReadFrom.Configuration(builder.Configuration)
+                        .ReadFrom.Services(services)
+                        .Enrich.FromLogContext()
+            );
         }
     }
 }

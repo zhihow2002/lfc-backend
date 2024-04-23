@@ -1,12 +1,8 @@
-using System;
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 using ClaimsPlugin.Application.Commands.AuthCommands;
-using ClaimsPlugin.Application.Interfaces;
 using ClaimsPlugin.Application.Services.Interfaces;
 using ClaimsPlugin.Domain.Interfaces;
-using ClaimsPlugin.Shared.Foundation.Features.Api.Rest.ApiReponse;
+using ClaimsPlugin.Shared.Foundation.Features.QueryAndResponse.Models.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -56,7 +52,7 @@ namespace ClaimsPlugin.Application.Handlers.AuthHandlers
 
                 // Retrieve user information from claims if necessary
                 var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                var user = await _userRepository.GetUserByUsernameAsync(userId);
+                var user = await _userRepository.GetUserByUsernameAsync(userId!);
                 if (user == null)
                 {
                     _logger.LogWarning(

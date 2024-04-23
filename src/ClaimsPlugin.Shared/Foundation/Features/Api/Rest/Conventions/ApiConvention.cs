@@ -1,5 +1,6 @@
 ﻿using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling;
 using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling.Exceptions;
+using ClaimsPlugin.Shared.Foundation.Features.ExceptionHandling.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
